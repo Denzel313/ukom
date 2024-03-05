@@ -39,9 +39,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/create-masuk', [BarangController::class, 'create_masuk'])->name('barang-masuk.create-masuk');
     Route::post('/proses-masuk', [BarangController::class, 'proses_masuk'])->name('barang-masuk.proses-masuk');
 
-    Route::get('/edit-masuk/{id}', [AlatController::class, 'edit'])->name('edit.barang-masuk');
-    Route::put('/update-masuk/{id}', [AlatController::class, 'update'])->name('update.barang-masuk');
-    Route::delete('/delete-masuk/{id}', [AlatController::class, 'delete'])->name('delete.barang-masuk');
+    Route::get('/edit-masuk/{id}', [BarangController::class, 'edit_masuk'])->name('edit.barang-masuk');
+    Route::put('/update-masuk/{id}', [BarangController::class, 'update'])->name('update.barang-masuk');
+    Route::delete('/delete-masuk/{id}', [BarangController::class, 'delete_masuk'])->name('delete.barang-masuk');
 
     // Route Barang Keluar
     Route::get('/barang-keluar', [BarangController::class, 'barang_keluar'])->name('barang-keluar');

@@ -69,14 +69,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Sumber Dana</label>
-                                        @foreach ($data as $d)
-                                            <input type="hidden" name="id_penyedia" value="{{ $d->id_penyedia }}">
-                                        @endforeach
-                                        <select name="sumber_dana" class="form-control">
-                                            @foreach ($data as $d)                                                
-                                            <option value="{{ $d->nama_penyedia }}">{{ $d->nama_penyedia }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="sumber_dana" class="form-control" id="exampleInputPassword1" placeholder="Sumber Dana">
                                         @error('sumber_dana')
                                         <small>{{ $message }}</small>
                                         @enderror

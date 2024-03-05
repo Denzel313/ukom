@@ -40,12 +40,42 @@ class BarangController extends Controller
         return redirect()->route('admin.barang-masuk')->with('success', 'Berhasil membuat data Barang Masuk baru');
     }
 
-    public function edit_masuk(Request $request){
+    public function edit_masuk(Request $request,$id){
+        $data = Masuk::find($id);
+        $penyedia = Penyedia::all();
 
+        return view('barang.masuk.edit_masuk',compact('data','penyedia'));
     }
 
-    public function delete_masuk(Request $request){
+    public function update(Request $request, $id_barang){
+        $data = Masuk::find($id_barang);
+       
+        // dd($request->all()); 
+        $validator = Validator::make($request->all(),[
+            'id_barang' => 'required',
+            'nama_barang'    => 'required',
+            'tgl_masuk'    => 'required',
+            'jml_masuk'         => 'required',
+            'id_penyedia'        => 'required',
+            'nama_penyedia'  => 'required',
+            
+        ]);
 
+        if($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
+
+        $data->update($request->all());
+
+        return redirect()->route('admin.barang-masuk');
+    }
+
+    public function delete_masuk(String $id){
+        $data = Masuk::find($id);
+
+        if($data){
+            $data->delete();
+        }
+
+        return redirect()->route('admin.barang-masuk');
     }
 
     public function barang_keluar(Request $request){
