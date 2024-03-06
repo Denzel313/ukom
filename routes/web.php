@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PeminjamController;
 use App\Http\Controllers\PenyediaController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,49 +36,55 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Route Barang Masuk
-    Route::get('/barang-masuk', [BarangController::class, 'barang_masuk'])->name('barang-masuk');
-    Route::get('/create-masuk', [BarangController::class, 'create_masuk'])->name('barang-masuk.create-masuk');
-    Route::post('/proses-masuk', [BarangController::class, 'proses_masuk'])->name('barang-masuk.proses-masuk');
+    Route::get('/barang-masuk', [BarangController::class, 'barang_masuk'])->name('barang-masuk')->middleware('permission:entri_barang_masuk'); 
+    Route::get('/create-masuk', [BarangController::class, 'create_masuk'])->name('barang-masuk.create-masuk')->middleware('permission:entri_barang_masuk'); 
+    Route::post('/proses-masuk', [BarangController::class, 'proses_masuk'])->name('barang-masuk.proses-masuk')->middleware('permission:entri_barang_masuk'); 
 
-    Route::get('/edit-masuk/{id}', [BarangController::class, 'edit_masuk'])->name('edit.barang-masuk');
-    Route::put('/update-masuk/{id}', [BarangController::class, 'update'])->name('update.barang-masuk');
-    Route::delete('/delete-masuk/{id}', [BarangController::class, 'delete_masuk'])->name('delete.barang-masuk');
+    Route::delete('/delete-masuk/{id}', [BarangController::class, 'delete_masuk'])->name('delete.barang-masuk')->middleware('permission:entri_barang_masuk'); 
 
     // Route Barang Keluar
-    Route::get('/barang-keluar', [BarangController::class, 'barang_keluar'])->name('barang-keluar');
-    Route::get('/create-keluar', [BarangController::class, 'create_keluar'])->name('barang-keluar.create-keluar');
-    Route::post('/proses-keluar', [BarangController::class, 'proses_keluar'])->name('barang-keluar.proses-keluar');
+    Route::get('/barang-keluar', [BarangController::class, 'barang_keluar'])->name('barang-keluar')->middleware('role:admin|manajemen'); 
+    Route::get('/create-keluar', [BarangController::class, 'create_keluar'])->name('barang-keluar.create-keluar')->middleware('permission:entri_barang_keluar'); 
+    Route::post('/proses-keluar', [BarangController::class, 'proses_keluar'])->name('barang-keluar.proses-keluar')->middleware('permission:entri_barang_keluar'); 
+
+    Route::delete('/delete-keluar/{id}', [BarangController::class, 'delete_keluar'])->name('delete.barang-keluar')->middleware('permission:entri_barang_keluar'); 
 
     // Route Peminjaman
-    Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
+    Route::get('/peminjaman', [PeminjamController::class, 'index'])->name('peminjaman')->middleware('permission:entri_peminjam');
+    Route::get('/create-peminjam', [PeminjamController::class, 'create'])->name('peminjam.create')->middleware('permission:entri_peminjam');
+    Route::post('/store-peminjam', [PeminjamController::class, 'store'])->name('peminjam.store')->middleware('permission:entri_peminjam');
 
-     // Route Penyedia
-    Route::get('/penyedia', [PenyediaController::class, 'index'])->name('penyedia');
-    Route::get('/create-penyedia', [PenyediaController::class, 'create'])->name('penyedia.create');
-    Route::get('/edit-penyedia/{id}', [PenyediaController::class, 'edit'])->name('penyedia.edit');
+    Route::get('/edit-peminjam/{id}', [PeminjamController::class, 'edit'])->name('peminjam.edit')->middleware('permission:edit_peminjam'); 
+    Route::put('/update-peminjam/{id}', [PeminjamController::class, 'update'])->name('peminjam.update')->middleware('permission:edit_peminjam'); 
+    Route::delete('/delete-peminjam/{id}', [PeminjamController::class, 'destroy'])->name('peminjam.delete')->middleware('permission:edit_peminjam'); 
+
+    // Route Penyedia
+    Route::get('/penyedia', [PenyediaController::class, 'index'])->name('penyedia')->middleware('permission:entri_penyedia'); 
+    Route::get('/create-penyedia', [PenyediaController::class, 'create'])->name('penyedia.create')->middleware('permission:entri_penyedia'); 
+    Route::get('/edit-penyedia/{id}', [PenyediaController::class, 'edit'])->name('penyedia.edit')->middleware('permission:entri_penyedia'); 
     
-    Route::post('/proses-penyedia', [PenyediaController::class, 'store'])->name('penyedia.proses');
-    Route::put('/update-penyedia/{id}', [PenyediaController::class, 'update'])->name('penyedia.update');
-    Route::delete('/delete-penyedia/{id}', [PenyediaController::class, 'destroy'])->name('penyedia.delete');
+    Route::post('/proses-penyedia', [PenyediaController::class, 'store'])->name('penyedia.proses')->middleware('permission:entri_penyedia'); 
+    Route::put('/update-penyedia/{id}', [PenyediaController::class, 'update'])->name('penyedia.update')->middleware('permission:entri_penyedia'); 
+    Route::delete('/delete-penyedia/{id}', [PenyediaController::class, 'destroy'])->name('penyedia.delete')->middleware('permission:entri_penyedia'); 
 
-    // Route ALat
-    Route::get('/alat-bahan', [AlatController::class, 'index'])->name('alat-bahan');
-    Route::get('/create-alat', [AlatController::class, 'create'])->name('create.alat-bahan');
-    Route::post('/store-alat', [AlatController::class, 'store'])->name('store.alat-bahan');
+    // Route ALat Bahan
+    Route::get('/alat-bahan', [AlatController::class, 'index'])->name('alat-bahan')->middleware('role:admin|manajemen');
+    Route::get('/create-alat', [AlatController::class, 'create'])->name('create.alat-bahan')->middleware('permission:edit_alat_bahan'); 
+    Route::post('/store-alat', [AlatController::class, 'store'])->name('store.alat-bahan')->middleware('permission:edit_alat_bahan'); 
 
-    Route::get('/edit-alat/{id}', [AlatController::class, 'edit'])->name('edit.alat-bahan');
-    Route::put('/update-alat/{id}', [AlatController::class, 'update'])->name('update.alat-bahan');
-    Route::delete('/delete-alat/{id}', [AlatController::class, 'delete'])->name('delete.alat-bahan');
+    Route::get('/edit-alat/{id}', [AlatController::class, 'edit'])->name('edit.alat-bahan')->middleware('permission:edit_alat_bahan'); 
+    Route::put('/update-alat/{id}', [AlatController::class, 'update'])->name('update.alat-bahan')->middleware('permission:edit_alat_bahan'); 
+    Route::delete('/delete-alat/{id}', [AlatController::class, 'delete'])->name('delete.alat-bahan')->middleware('permission:edit_alat_bahan'); 
 
     // Route Index
-    Route::get('/user', [HomeController::class, 'index'])->name('index');
-    Route::get('/create', [HomeController::class, 'create'])->name('user.create');
-    Route::post('/store', [HomeController::class, 'store'])->name('user.store');
+    Route::get('/user', [HomeController::class, 'index'])->name('index')->middleware('permission:entri_user'); 
+    Route::get('/create', [HomeController::class, 'create'])->name('user.create')->middleware('permission:entri_user'); 
+    Route::post('/store', [HomeController::class, 'store'])->name('user.store')->middleware('permission:entri_user'); 
 
     
-    Route::get('/edit/{id}', [HomeController::class, 'edit'])->name('user.edit');
-    Route::put('/update/{id}', [HomeController::class, 'update'])->name('user.update');
-    Route::delete('/delete/{id}', [HomeController::class, 'delete'])->name('user.delete');
+    Route::get('/edit/{id}', [HomeController::class, 'edit'])->name('user.edit')->middleware('permission:entri_user'); 
+    Route::put('/update/{id}', [HomeController::class, 'update'])->name('user.update')->middleware('permission:entri_user'); 
+    Route::delete('/delete/{id}', [HomeController::class, 'delete'])->name('user.delete')->middleware('permission:entri_user'); 
 
     // Route DataTables
     Route::get('/clientside', [DataTableController::class, 'clientside'])->name('clientside');

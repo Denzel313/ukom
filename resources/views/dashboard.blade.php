@@ -21,7 +21,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>150</h3>
@@ -30,10 +30,12 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
+                        @hasrole('admin')
                         <a href="#" class="small-box-footer">Info Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+                        @endhasrole
                     </div>
                 </div>
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-6">
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>53<sup style="font-size: 20px">%</sup></h3>
@@ -42,38 +44,30 @@
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
+                        @hasrole('admin')
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        @endhasrole
                     </div>
                 </div>
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-6">
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3></h3>
+                            <h3>{{ $hitung }}</h3>
                             <p>Total Data User</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person"></i>
                         </div>
+                        @hasrole('admin')
                         <a href="{{ route('admin.index') }}" class="small-box-footer">Info Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>65</h3>
-                            <p>Unique Visitors</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        @endhasrole
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-12">
-                    <a href="" class="btn btn-primary mb-3">Tambah Data</a>
+                    {{-- <a href="" class="btn btn-primary mb-3">Tambah Data</a> --}}
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Responsive Hover Table</h3>
@@ -81,13 +75,13 @@
                             <div class="card-tools">
                                 <form action="" method="GET">
                                     <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="search" class="form-control float-right" placeholder="Search" value="">
+                                        {{-- <input type="text" name="search" class="form-control float-right" placeholder="Search" value=""> --}}
                                 </form>
 
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
+                                    {{-- <button type="submit" class="btn btn-default">
                                         <i class="fas fa-search"></i>
-                                    </button>
+                                    </button> --}}
                                 </div>
                             </div>
                         </div>

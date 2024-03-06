@@ -37,7 +37,14 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Nama Barang</label>
-                                        <input type="text" name="nama_barang" class="form-control" id="exampleInputEmail1" placeholder="Nama Barang">
+                                        @foreach ($data as $alat)
+                                        <input type="hidden" name="id_barang" value="{{ $alat->id_barang }}">
+                                        @endforeach
+                                        <select name="nama_barang" class="form-control">
+                                            @foreach ($data as $alat)
+                                            <option value="{{ $alat->nama_barang }}">{{ $alat->nama_barang }}</option>
+                                            @endforeach
+                                        </select>
                                         @error('nama_barang')
                                         <small>{{ $message }}</small>
                                         @enderror
@@ -52,7 +59,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Jumlah Keluar</label>
                                         <input type="number" name="jml_keluar" class="form-control" id="exampleInputPassword1" placeholder="Jumlah Keluar">
-                                        @error('jml-keluar')
+                                        @error('jml_keluar')
                                         <small>{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -65,7 +72,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Penerima</label>
-                                        <input type="text" name="penerima" class="form-control" id="exampleInputPassword1" placeholder="Penerima">
+                                        <select name="penerima" class="form-control">
+                                            @foreach ($peminjam as $penerima)
+                                            <option value="{{ $penerima->peminjam }}">{{ $penerima->peminjam }}</option>
+                                            @endforeach
+                                        </select>
                                         @error('penerima')
                                         <small>{{ $message }}</small>
                                         @enderror

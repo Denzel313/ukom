@@ -26,72 +26,60 @@
 
                 <form action="{{ route('register-proses') }}" method="post">
                     @csrf
-                    {{-- <div class="form-group">
-                        <label for="exampleInputEmail1">Photo Profile</label>
-                        <input type="file" name="photo" class="form-control" id="exampleInputEmail1">
-                        @error('photo')
-                        <small>{{ $message }}</small>
+                    <div class="input-group mb-3">
+                        <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" value="{{ old('nama') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @error('nama')
+                    <small>{{ $message }}</small>
                     @enderror
-            </div> --}}
-            <div class="input-group mb-3">
-                <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" value="{{ old('nama') }}">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-user"></span>
+                    <div class="input-group mb-3">
+                        <input type="text" name="username" class="form-control" placeholder="Username" value="{{ old('username') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            @error('nama')
-            <small>{{ $message }}</small>
-            @enderror
-            <div class="input-group mb-3">
-                <input type="text" name="username" class="form-control" placeholder="Username" value="{{ old('username') }}">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-user"></span>
+                    @error('username')
+                    <small>{{ $message }}</small>
+                    @enderror
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            @error('username')
-            <small>{{ $message }}</small>
-            @enderror
-            <div class="input-group mb-3">
-                <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
+                    @error('email')
+                    <small>{{ $message }}</small>
+                    @enderror
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            @error('email')
-            <small>{{ $message }}</small>
-            @enderror
-            <div class="input-group mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Password">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
+                    @error('password')
+                    <small>{{ $message }}</small>
+                    @enderror
+                    <input type="hidden" name="level" class="form-control" placeholder="Password" value="user">
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
-            @error('password')
-            <small>{{ $message }}</small>
-            @enderror
-            <input type="hidden" name="level" class="form-control" placeholder="Password" value="user">
-            <div class="row">
-                <!-- /.col -->
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
-                </div>
-                <!-- /.col -->
-            </div>
-            </form>
         </div>
-        <!-- /.card-body -->
     </div>
-    <!-- /.card -->
-    </div>
-    <!-- /.login-box -->
 
     <!-- jQuery -->
     <script src="{{ asset('lte//plugins/jquery/jquery.min.js')}}"></script>

@@ -20,4 +20,9 @@ class Alat extends Model
         'id_penyedia',
         'updated_at',
     ];
+
+    // protected $casts = [
+    //     'updated_at' => 'datetime',
+    //     'created_at' => 'datetime',
+    // ];
 }

@@ -15,6 +15,7 @@ class AlatController extends Controller
         $data = Masuk::all();
 
         return view('alat.alat', compact('alat','data'));
+        return abort(403);
     }
 
     public function create(){

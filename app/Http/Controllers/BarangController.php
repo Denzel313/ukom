@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alat;
+use App\Models\Keluar;
 use App\Models\Masuk;
+use App\Models\Peminjam;
 use App\Models\Penyedia;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,34 +42,6 @@ class BarangController extends Controller
         return redirect()->route('admin.barang-masuk')->with('success', 'Berhasil membuat data Barang Masuk baru');
     }
 
-    public function edit_masuk(Request $request,$id){
-        $data = Masuk::find($id);
-        $penyedia = Penyedia::all();
-
-        return view('barang.masuk.edit_masuk',compact('data','penyedia'));
-    }
-
-    public function update(Request $request, $id_barang){
-        $data = Masuk::find($id_barang);
-       
-        // dd($request->all()); 
-        $validator = Validator::make($request->all(),[
-            'id_barang' => 'required',
-            'nama_barang'    => 'required',
-            'tgl_masuk'    => 'required',
-            'jml_masuk'         => 'required',
-            'id_penyedia'        => 'required',
-            'nama_penyedia'  => 'required',
-            
-        ]);
-
-        if($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
-
-        $data->update($request->all());
-
-        return redirect()->route('admin.barang-masuk');
-    }
-
     public function delete_masuk(String $id){
         $data = Masuk::find($id);
 
@@ -79,24 +53,38 @@ class BarangController extends Controller
     }
 
     public function barang_keluar(Request $request){
-        $data = new User;
+        $data = Keluar::all();
 
-        return view('barang.keluar.keluar', compact('data','request'));
+        return view('barang.keluar.keluar', compact('data'));
     }
 
     public function create_keluar(){
+        $data = Alat::all();
+        $peminjam = Peminjam::all();
+        return view('barang.keluar.create_keluar', compact('data','peminjam'));
     }
 
     public function proses_keluar(Request $request){
-       
+       // dd($request->all());
+       Keluar::create([
+        'id_barang' => $request->id_barang,
+        'nama_barang' => $request->nama_barang,
+        'tgl_keluar' => $request->tgl_keluar,
+        'jml_keluar' => $request->jml_keluar,
+        'lokasi' => $request->lokasi,
+        'penerima' => $request->penerima
+    ]);
+
+    return redirect()->route('admin.barang-keluar')->with('success', 'Berhasil membuat data Barang Masuk baru');
     }
 
-    public function edit_keluar(){
+    public function delete_keluar(String $id){
+        $data = Keluar::find($id);
 
-    }
+        if($data){
+            $data->delete();
+        }
 
-
-    public function delete_keluar(){
-
+        return redirect()->route('admin.barang-masuk');
     }
 }

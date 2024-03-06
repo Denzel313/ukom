@@ -7,12 +7,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Data Barang Keluar</h1>
+                    <h1 class="m-0">Peminjam</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Data Barang Keluar</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Data Peminjam</li>
                     </ol>
                 </div>
             </div>
@@ -25,13 +25,10 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-12">
-                    @hasrole('admin')
-                    <a href="{{ route('admin.barang-keluar.create-keluar') }}" class="btn btn-primary mb-3">Tambah Data</a>
-                    @endhasrole
-                    <a href="" class="btn btn-success mb-3">Export Excel</a>
+                    <a href="{{ route('admin.peminjam.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Table Barang Keluar</h3>
+                            <h3 class="card-title">Table Data Peminjam</h3>
 
                             <div class="card-tools">
                                 <form action="{{ route('admin.index') }}" method="GET">
@@ -47,17 +44,17 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Peminjam</th>
+                                    <th>Tanggal Pinjam</th>
                                     <th>Nama Barang</th>
-                                    <th>Tanggal Keluar</th>
-                                    <th>Jumlah Keluar</th>
-                                    <th>Lokasi</th>
-                                    <th>Penerima</th>
+                                    <th>Jumlah Barang</th>
+                                    <th>Tanggal Kembali</th>
+                                    <th>Kondisi</th>
                                     @hasrole('admin')
                                     <th>Action</th>
                                     @endhasrole
@@ -68,16 +65,18 @@
                                 @foreach ($data as $d)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $d->peminjam }}</td>
+                                    <td>{{ $d->tgl_pinjam->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>{{ $d->nama_barang }}</td>
-                                    <td>{{ $d->tgl_keluar->isoFormat('dddd, D MMMM Y') }}</td>
-                                    <td>{{ $d->jml_keluar }}</td>
-                                    <td>{{ $d->lokasi }}</td>
-                                    <td>{{ $d->penerima }}</td>
+                                    <td>{{ $d->jml_barang }}</td>
+                                    <td>{{ $d->tgl_kembali->isoFormat('dddd, D MMMM Y') }}</td>
+                                    <td>{{ $d->kondisi }}</td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#modal-hapus{{ $d->id }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                        <a href="{{ route('admin.peminjam.edit',['id' => $d->id_pinjam]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
+                                        <a data-toggle="modal" data-target="#modal-hapus{{ $d->id_pinjam }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="modal-hapus{{ $d->id }}">
+                                <div class="modal fade" id="modal-hapus{{ $d->id_pinjam }}">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -87,10 +86,10 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Apakah Kamu yakin ingin menghapus data barang<b>{{ $d->name }}</b></p>
+                                                <p>Apakah Kamu yakin ingin menghapus data Peminjam <b>{{ $d->peminjam }}</b></p>
                                             </div>
                                             <div class="modal-footer justify-content-between">
-                                                <form action="{{ route('admin.user.delete',['id' => $d->id]) }}" method="POST">
+                                                <form action="{{ route('admin.peminjam.delete',['id' => $d->id_pinjam]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -104,16 +103,17 @@
                             </tbody>
                             @endhasrole
 
-                            @hasrole('manajemen')
+                            @hasrole('peminjam')
                             <tbody>
                                 @foreach ($data as $d)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $d->peminjam }}</td>
+                                    <td>{{ $d->tgl_pinjam->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>{{ $d->nama_barang }}</td>
-                                    <td>{{ $d->tgl_keluar->isoFormat('dddd, D MMMM Y') }}</td>
-                                    <td>{{ $d->jml_keluar }}</td>
-                                    <td>{{ $d->lokasi }}</td>
-                                    <td>{{ $d->penerima }}</td>
+                                    <td>{{ $d->jml_barang }}</td>
+                                    <td>{{ $d->tgl_kembali->isoFormat('dddd, D MMMM Y') }}</td>
+                                    <td>{{ $d->kondisi }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

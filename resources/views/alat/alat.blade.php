@@ -34,7 +34,7 @@
                             <div class="card-tools">
                                 <form action="{{ route('admin.alat-bahan') }}" method="GET">
                                     <div class="input-group input-group-sm" style="width: 150px;">
-                                    {{-- <input type="text" name="search" class="form-control float-right" placeholder="Search" value="{{ $request->get('search') }}"> --}}
+                                        {{-- <input type="text" name="search" class="form-control float-right" placeholder="Search" value="{{ $request->get('search') }}"> --}}
                                 </form>
 
                                 <div class="input-group-append">
@@ -56,12 +56,15 @@
                                     <th>Lokasi</th>
                                     <th>Kondisi</th>
                                     <th>Jumlah Barang</th>
+                                    @hasrole('admin')
                                     <th>Sumber Dana</th>
+                                    @endhasrole
                                     <th>Dibuat Tanggal</th>
                                     <th>Diedit Tanggal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
+                            @hasrole('admin')
                             <tbody>
                                 @foreach ($alat as $d)
                                 <tr>
@@ -72,8 +75,8 @@
                                     <td>{{ $d->kondisi }}</td>
                                     <td>{{ $d->jumlah_barang }}</td>
                                     <td>{{ $d->sumber_dana }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($d->created_at)) }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($d->updated_at)) }}</td>
+                                    <td>{{ $d->created_at->isoFormat('dddd, D MMMM Y') }}</td>
+                                    <td>{{ $d->updated_at->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>
                                         <a href="{{ route('admin.edit.alat-bahan',['id' => $d->id_barang]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
                                         <a data-toggle="modal" data-target="#modal-hapus{{ $d->id_barang }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
@@ -104,6 +107,28 @@
                                 </div>
                                 @endforeach
                             </tbody>
+                            @endhasrole
+
+                            @hasrole('manajemen')
+                            <tbody>
+                                @foreach ($alat as $d)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $d->nama_barang }}</td>
+                                    <td>{{ $d->spesifikasi }}</td>
+                                    <td>{{ $d->lokasi }}</td>
+                                    <td>{{ $d->kondisi }}</td>
+                                    <td>{{ $d->jumlah_barang }}</td>
+                                    <td>{{ $d->created_at->isoFormat('dddd, D MMMM Y') }}</td>
+                                    <td>{{ $d->updated_at->isoFormat('dddd, D MMMM Y') }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.edit.alat-bahan',['id' => $d->id_barang]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            @endhasrole
+
                         </table>
                     </div>
                 </div>

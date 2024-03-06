@@ -57,11 +57,9 @@
                                 </label>
                             </div>
                         </div>
-                        <!-- /.col -->
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
                 <p class="mb-1">
@@ -71,11 +69,8 @@
                     <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
                 </p>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.login-box -->
 
     <!-- jQuery -->
     <script src="{{ asset('lte//plugins/jquery/jquery.min.js')}}"></script>

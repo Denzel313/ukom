@@ -25,7 +25,10 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-12">
+                    @hasrole('admin')
                     <a href="{{ route('admin.barang-masuk.create-masuk') }}" class="btn btn-primary mb-3">Tambah Data</a>
+                    @endhasrole
+                    <a href="" class="btn btn-success mb-3">Export Excel</a>
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Table Barang Masuk</h3>
@@ -55,19 +58,21 @@
                                     <th>Tanggal Masuk</th>
                                     <th>Jumlah Masuk</th>
                                     <th>Penyedia</th>
+                                    @hasrole('admin')
                                     <th>Action</th>
+                                    @endhasrole
                                 </tr>
                             </thead>
+                            @hasrole('admin')
                             <tbody>
                                 @foreach ($data as $d)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $d->nama_barang }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($d->tgl_masuk)) }}</td>
+                                    <td>{{ $d->tgl_masuk->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>{{ $d->jml_masuk }}</td>
                                     <td>{{ $d->nama_penyedia }}</td>
                                     <td>
-                                        <a href="{{ route('admin.edit.barang-masuk',['id' => $d->id]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
                                         <a data-toggle="modal" data-target="#modal-hapus{{ $d->id }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
                                     </td>
                                 </tr>
@@ -96,6 +101,20 @@
                                 </div>
                                 @endforeach
                             </tbody>
+                            @endhasrole
+
+                            @hasrole('manajemen')
+                            <tbody>
+                                @foreach ($data as $d)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $d->nama_barang }}</td>
+                                    <td>{{ $d->tgl_masuk->isoFormat('dddd, D MMMM Y') }}</td>
+                                    <td>{{ $d->jml_masuk }}</td>
+                                    <td>{{ $d->nama_penyedia }}</td>
+                                    @endforeach
+                            </tbody>
+                            @endhasrole
                         </table>
                     </div>
                 </div>
