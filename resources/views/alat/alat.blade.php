@@ -78,11 +78,11 @@
                                     <td>{{ $d->created_at->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>{{ $d->updated_at->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.edit.alat-bahan',['id' => $d->id_barang]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
-                                        <a data-toggle="modal" data-target="#modal-hapus{{ $d->id_barang }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                        <a href="{{ route('admin.edit.alat-bahan',['id' => $d->id]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
+                                        <a data-toggle="modal" data-target="#modal-hapus{{ $d->id }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="modal-hapus{{ $d->id_barang }}">
+                                <div class="modal fade" id="modal-hapus{{ $d->id }}">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -95,7 +95,7 @@
                                                 <p>Apakah Kamu yakin ingin menghapus data Alat Bahan <b>{{ $d->nama_barang }}</b></p>
                                             </div>
                                             <div class="modal-footer justify-content-between">
-                                                <form action="{{ route('admin.delete.alat-bahan',['id' => $d->id_barang]) }}" method="POST">
+                                                <form action="{{ route('admin.delete.alat-bahan',['id' => $d->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -122,7 +122,7 @@
                                     <td>{{ $d->created_at->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>{{ $d->updated_at->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.edit.alat-bahan',['id' => $d->id_barang]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
+                                        <a href="{{ route('admin.edit.alat-bahan',['id' => $d->id]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
                                     </td>
                                 </tr>
                                 @endforeach

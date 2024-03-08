@@ -103,13 +103,13 @@ class PermissionSeeder extends Seeder
 
         //Ambil Data User yang ingin di assign role nya
         $user = User::find(1); // role_id = 1
-        $user2 = User::find(2); // role_id = 2
-        $user3 = User::find(4); // role_id = 3
+        // $user2 = User::find(2); // role_id = 2
+        // $user3 = User::find(4); // role_id = 3
 
         //Assign Role
         $user->assignRole(['admin']);
-        $user2->assignRole(['manajemen']);
-        $user3->assignRole(['peminjam']);
+        // $user2->assignRole(['manajemen']);
+        // $user3->assignRole(['peminjam']);
 
     }
 }

@@ -8,21 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Alat extends Model
 {
     use HasFactory;
-    protected $table = 'alatbahan';
-    protected $primaryKey = 'id_barang';
     protected $fillable = [
         'nama_barang',
         'spesifikasi',
         'lokasi',
         'kondisi',
         'jumlah_barang',
-        'sumber_dana',
-        'id_penyedia',
-        'updated_at',
+        'sumber_dana'
     ];
 
-    // protected $casts = [
-    //     'updated_at' => 'datetime',
-    //     'created_at' => 'datetime',
-    // ];
+    public function barang_masuk()
+    {
+        return $this->hasMany(BarangMasuk::class, 'id_barang', 'id');
+    }
 }

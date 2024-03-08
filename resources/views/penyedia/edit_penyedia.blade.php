@@ -21,7 +21,7 @@
 
     <section class="content">
         <div class="container-fluid">
-            <form action="{{ route('admin.penyedia.update',['id' => $data->id_penyedia]) }}" method="POST">
+            <form action="{{ route('admin.penyedia.update',['id' => $data->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Telepon Penyedia</label>
-                                        <input type="text" name="telpon_penyedia" value="{{ $data->telpon_penyedia }}" class="form-control" id="exampleInputPassword1" placeholder="Telepon Penyedia">
+                                        <input type="text" name="telpon_penyedia" value="{{ $data->telepon_penyedia }}" class="form-control" id="exampleInputPassword1" placeholder="Telepon Penyedia">
                                         @error('telpon_penyedia')
                                         <small>{{ $message }}</small>
                                         @enderror

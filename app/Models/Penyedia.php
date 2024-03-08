@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Penyedia extends Model
 {
     use HasFactory;
-    protected $table = 'penyedia';
-    protected $primaryKey = 'id_penyedia';
     protected $fillable = [
         'nama_penyedia',
         'alamat_penyedia',
-        'telpon_penyedia',
+        'telepon_penyedia',
     ];
+
+    public function barang_masuk()
+    {
+        return $this->hasMany(BarangMasuk::class, 'id_penyedia', 'id');
+    }
 }

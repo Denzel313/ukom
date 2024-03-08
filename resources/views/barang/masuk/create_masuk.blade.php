@@ -33,16 +33,13 @@
                             <form>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Nama Barang</label>
-                                        @foreach ($data as $d)
-                                        <input type="hidden" name="id_barang" value="{{ $d->id_barang }}"></input>
-                                        @endforeach
-                                        <select name="nama_barang" class="form-control" id="position-option">
+                                        <label for="id_barang">Nama Barang</label>
+                                        <select name="id_barang" class="form-control" id="position-option">
                                             @foreach ($data as $d)
-                                            <option value="{{ $d->nama_barang }}">{{ $d->nama_barang }}</option>
+                                            <option value="{{ $d->id }}">{{ $d->nama_barang }}</option>
                                             @endforeach
                                         </select>
-                                        @error('nama_barang')
+                                        @error('id_barang')
                                         <small>{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -54,14 +51,17 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Nama Penyedia</label>
-                                        <select name="nama_penyedia" class="form-control" id="position-option">
+                                        <label for="id_penyedia">Nama Penyedia</label>
+                                        <select name="id_penyedia" class="form-control" id="position-option">
                                             @foreach ($penyedia as $p)
-                                            <option value="{{ $p->nama_penyedia }}">{{ $p->nama_penyedia }}</option>
+                                            @if(old('id_penyedia') == $p->id)
+                                            <option value="{{ $p->id }}" selected>{{ $p->nama_penyedia }}</option>
+                                            @else
+                                            <option value="{{ $p->id }}">{{ $p->nama_penyedia }}</option>
+                                            @endif
                                             @endforeach
                                         </select>
-                                        <input type="hidden" name="id_penyedia" class="form-control" id="exampleInputPassword1" value="{{ $p->id_penyedia }}">
-                                        @error('nama_penyedia')
+                                        @error('id_penyedia')
                                         <small>{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -69,12 +69,16 @@
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>
+
             </form>
         </div>
-    </section>
+</div>
+</div>
+</form>
+</div>
+</section>
 </div>
 @endsection

@@ -35,6 +35,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     // Route Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    //Route Export
+    Route::get('import_export', 'importExport');
+    Route::post('import', 'import')->name('import');
+    Route::get('export', 'export')->name('export');
+
     // Route Barang Masuk
     Route::get('/barang-masuk', [BarangController::class, 'barang_masuk'])->name('barang-masuk')->middleware('permission:entri_barang_masuk'); 
     Route::get('/create-masuk', [BarangController::class, 'create_masuk'])->name('barang-masuk.create-masuk')->middleware('permission:entri_barang_masuk'); 

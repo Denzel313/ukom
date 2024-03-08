@@ -34,7 +34,7 @@ class PenyediaController extends Controller
         Penyedia::create([
         'nama_penyedia' => $request->nama,
         'alamat_penyedia' => $request->alamat,
-        'telpon_penyedia' => $request->telepon,
+        'telepon_penyedia' => $request->telepon,
         ]);
 
         return redirect()->route('admin.penyedia')->with('success', 'Berhasil membuat data Penyedia baru');
@@ -67,7 +67,7 @@ class PenyediaController extends Controller
         $validator = Validator::make($request->all(),[
             'nama_penyedia'    => 'required',
             'alamat_penyedia'  => 'required',
-            'telpon_penyedia'  => 'required',
+            'telepon_penyedia'  => 'required',
         ]);
 
         if($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);

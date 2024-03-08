@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alat;
-use App\Models\Peminjam;
+use App\Models\PinjamAlat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +14,7 @@ class PeminjamController extends Controller
      */
     public function index()
     {
-        $data = Peminjam::all();
+        $data = PinjamAlat::all();
         return view('peminjaman.peminjam',compact('data'));
     }
 
@@ -23,7 +23,7 @@ class PeminjamController extends Controller
      */
     public function create()
     {
-        $data = Peminjam::all();
+        $data = PinjamAlat::all();
         $barang = Alat::all();
         return view('peminjaman.create_peminjam',compact('data','barang'));
     }
@@ -34,7 +34,7 @@ class PeminjamController extends Controller
     public function store(Request $request)
     {
         //  dd($request->all());
-         Peminjam::create([
+        PinjamAlat::create([
             'peminjam' => $request->peminjam,
             'tgl_pinjam' => $request->tgl_pinjam,
             'id_barang' => $request->id_barang,
@@ -60,7 +60,7 @@ class PeminjamController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Peminjam::find($id);
+        $data = PinjamAlat::find($id);
         $barang = Alat::all();
 
         return view('peminjaman.edit_peminjam',compact('data','barang'));
@@ -71,7 +71,7 @@ class PeminjamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = Peminjam::find($id);
+        $data = PinjamAlat::find($id);
         // dd($request->all()); 
         $validator = Validator::make($request->all(),[
             'peminjam'      => 'required',
@@ -95,7 +95,7 @@ class PeminjamController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Peminjam::find($id);
+        $data = PinjamAlat::find($id);
 
         if($data){
             $data->delete();

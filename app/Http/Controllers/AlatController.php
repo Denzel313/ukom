@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alat;
-use App\Models\Masuk;
+use App\Models\BarangMasuk;
 use App\Models\Penyedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +12,7 @@ class AlatController extends Controller
 {
     public function index(Request $request){
         $alat = Alat::all();
-        $data = Masuk::all();
+        $data = BarangMasuk::all();
 
         return view('alat.alat', compact('alat','data'));
         return abort(403);
@@ -33,7 +33,6 @@ class AlatController extends Controller
             'lokasi' => $request->lokasi,
             'kondisi' => $request->kondisi,
             'jumlah_barang' => $request->jumlah_barang,
-            'id_penyedia' => $request->id_penyedia,
             'sumber_dana' => $request->sumber_dana,
         ]);
 

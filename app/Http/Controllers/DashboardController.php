@@ -20,15 +20,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = Alat::all();
         $hitung = DB::table('users')->count();
-        $level = User::all();
+        $data = Alat::all();
 
-        // return response()->json([
-        //     'data' => $level,
-        // ]);
+        $masuk = DB::table('barang_masuks')
+        ->select('jml_masuk')
+        ->get();
       
-        return view('dashboard', compact('data','hitung','level'));
+        return view('dashboard', compact('data','hitung'));
         return abort(403);
     }
 

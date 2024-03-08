@@ -3,22 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alat;
-use App\Models\Keluar;
-use App\Models\Masuk;
-use App\Models\Peminjam;
+use App\Models\BarangKeluar;
+use App\Models\BarangMasuk;
 use App\Models\Penyedia;
-use App\Models\User;
+use App\Models\PinjamAlat;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
     
     public function barang_masuk(Request $request){
-        $data = Masuk::all();
-        
+        $data = BarangMasuk::paginate(2);
         return view('barang.masuk.masuk', compact('data'));
     }
 
@@ -30,20 +26,19 @@ class BarangController extends Controller
 
     public function proses_masuk(Request $request){
         // dd($request->all());
-        Masuk::create([
+        // $id_barang = DB::table('alats')->where('nama_barang', $request->nama_barang)->first();
+        BarangMasuk::create([
             'id_barang' => $request->id_barang,
-            'nama_barang' => $request->nama_barang,
             'tgl_masuk' => now(),
             'jml_masuk' => $request->jml_masuk,
             'id_penyedia' => $request->id_penyedia,
-            'nama_penyedia' => $request->nama_penyedia
         ]);
 
         return redirect()->route('admin.barang-masuk')->with('success', 'Berhasil membuat data Barang Masuk baru');
     }
 
     public function delete_masuk(String $id){
-        $data = Masuk::find($id);
+        $data = BarangMasuk::find($id);
 
         if($data){
             $data->delete();
@@ -53,20 +48,20 @@ class BarangController extends Controller
     }
 
     public function barang_keluar(Request $request){
-        $data = Keluar::all();
+        $data = BarangKeluar::all();
 
         return view('barang.keluar.keluar', compact('data'));
     }
 
     public function create_keluar(){
         $data = Alat::all();
-        $peminjam = Peminjam::all();
+        $peminjam = PinjamAlat::all();
         return view('barang.keluar.create_keluar', compact('data','peminjam'));
     }
 
     public function proses_keluar(Request $request){
        // dd($request->all());
-       Keluar::create([
+       BarangKeluar::create([
         'id_barang' => $request->id_barang,
         'nama_barang' => $request->nama_barang,
         'tgl_keluar' => $request->tgl_keluar,
@@ -79,7 +74,7 @@ class BarangController extends Controller
     }
 
     public function delete_keluar(String $id){
-        $data = Keluar::find($id);
+        $data = BarangKeluar::find($id);
 
         if($data){
             $data->delete();

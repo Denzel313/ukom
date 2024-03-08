@@ -69,7 +69,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $d->nama_barang }}</td>
-                                    <td>{{ $d->tgl_masuk->isoFormat('dddd, D MMMM Y') }}</td>
+                                    <td>{{ $d->created_at->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>{{ $d->jml_masuk }}</td>
                                     <td>{{ $d->nama_penyedia }}</td>
                                     <td>
